@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+	<link rel="stylesheet" href="/stylesheets/fancybox/jquery.fancybox-buttons.css">
+	<link rel="stylesheet" href="/stylesheets/fancybox/jquery.fancybox-thumbs.css">
+	<link rel="stylesheet" href="/stylesheets/fancybox/jquery.fancybox.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.1.min.js"><\/script>')</script>
+	<script src="/javascripts/fancybox/jquery.fancybox.js"></script>
+	<script src="/javascripts/fancybox/jquery.fancybox-buttons.js"></script>
+	<script src="/javascripts/fancybox/jquery.fancybox-thumbs.js"></script>
+	<script src="/javascripts/fancybox/jquery.easing-1.3.pack.js"></script>
+	<script src="/javascripts/fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%=title%> <%=myDir%></p>
+	<div class="container">
+		<div class="row">
+			<% for(var i in datas){ %>
+				<% for(var m in datas[i].img){ %>
+				<div class="4u">
+					<h3><%= datas[i].name %></h3>
+					<a class="fancybox" href="/<%= datas[i].img[m] %>" >
+					<img class="smallimg" src="/<%= datas[i].img[m] %>" />
+					</a>
+					<p>
+					<% for(var n in datas[i].mv){ %>
+					<a class="mv" data-id="<%= datas[i].mv[n] %>" href="javascript:;">播放</a>
+					<% } %>
+					</p>
+				</div>
+				<% } %>
+			<% } %>
+		</div>
+	</div>
+  </body>
+</html>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".fancybox").fancybox();
+	$(".mv").on('click',function(){
+		var mv = $(this).data("id");
+		$.get('/users?name='+mv,function(d){
+			console.log(d);
+		})
+	})
+})
+</script>
